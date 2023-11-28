@@ -1,0 +1,245 @@
+Exo 1 :
+
+const float M_EN_P = 3.28084;
+float p, m;
+
+
+/**
+ * Converti une mesure en metres en un mesure en pieds
+ * @param m la mesure en metres
+ * @return la mesure en pieds
+ */
+float m2p (float m) {
+    return m * M_EN_P;
+}
+
+int main(){
+    cout << "Saisir la valeur (en metres) a convertir en pieds : " ;
+    cin >> m;
+
+    p = m2p(m) ;
+    cout << m << " mètres = " << p << " pieds" << endl;
+
+    return 0;
+}
+
+Exo 2 :
+
+/**Applique une opération sur deux nombres flottants
+ * @param v1 un nombre flottant
+ * @param v2 un nombre flottant
+ * @param op un caractère représentant l'opération à effectuer: '+', '-', '*', '/'
+ * @return un nombre réel, le résultat de l'opération retenue
+ **/
+float operation (float v1, float v2, char op ){
+
+    if (op == '+') {
+    return v1 + v2;
+    } else if (op == '-') {
+    return v1 - v2;
+    } else if (op == '*') {
+    return v1 * v2;
+    } else {
+    return v1 / v2;
+    } 
+}
+
+/** Tests pour la fonction operation **/
+void operationTest(){
+    ASSERT( operation(6, 3, '+') ==  9 );
+    ASSERT( operation(6, 3, '-') ==  3 );
+}
+
+/** Programme principal qui lance les tests, puis demande à
+ * l'utilisateur de tapper une expression comme '4 + 1' et affiche le
+ * résultat. Puis demande si l'utilisateur veut recommencer.
+ * @return 0 - Arrêt normal du programme.
+ */
+int main(){
+    float v1, v2;
+    char continuer, op;
+    bool working = true, test = false;
+    operationTest();
+    while (working) {
+        test = false;
+        cout << "Entrez une opération mathématique primaire";
+        cin >> v1 >> op >> v2;
+        cout << operation (v1, v2, op);
+    
+        while (not test) {
+            cout << "Voulez-vous continuer ? Saisissez O pour oui et N pour non.";
+            cin >> continuer;
+            if (continuer == 'N') {
+                working = false;
+                test = true;
+                } else if (continuer == 'O') {
+                    working = true;
+                    test = true;
+            } else {
+                cout << "Veuillez entrer un caractère correct.";
+            }
+        }
+    }
+}
+
+Exo 3 :
+
+/**Applique une opération sur deux nombres flottants
+ * @param a  un booléen
+ * @return un string, "VRAI" ou "FAUX"
+ **/
+void boolen(bool a)
+{
+    if (a) {
+        cout << "VRAI";
+    } else {
+        cout << "FAUX";
+    }
+    
+}
+
+Exo 4 :
+
+**Vérifie si un nombre entier est premier
+ * @param a un nombre entier
+ * @return un bouléen, le résultat de la vérification
+ **/
+bool estPremier(int a) {
+    int count, b;
+    count = 0;
+    b = a;
+    while (b > 0) {
+        if (a%b == 0) {
+            count += 1;
+        }
+        b -= 1;
+    }
+    if (count == 2) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+/**Affiche les nombres premiers de 1 à n.
+ * @param n un nombre entier
+ * @return None
+ **/
+void jusqueN (int n) {
+    for (n; n>0; n-=1) {
+        if (estPremier(n)) {
+            cout << n << endl;
+        }
+    }
+}
+
+
+int main()
+{
+    int a, n;
+    //cout << "Question 1 : saisissez un entier a.";
+    //cin >> a;
+    //cout << estPremier(a);
+    cout << "Question 2 : saisissez un entier n.";
+    cin >> n;
+    jusqueN(n);
+    
+}
+
+Exo 5 :
+
+int racinesPolynome(float a, float b, float c, float& x1, float& x2) {
+    double discriminant = b * b - 4 * a * c;
+
+    if (discriminant > 0) {
+        x1 = (-b + sqrt(discriminant)) / (2 * a);
+        x2 = (-b - sqrt(discriminant)) / (2 * a);
+        return 2;
+    } else if (discriminant == 0) {
+        x1 = -b / (2 * a);
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int main() {
+    char continuer;
+    
+    do {
+        float a, b, c;
+        float x1, x2;
+        
+        cout << "Entrez le coefficient a : ";
+        cin >> a;
+        cout << "Entrez le coefficient b : ";
+        cin >> b;
+        cout << "Entrez le coefficient c : ";
+        cin >> c;
+
+        int nbRacines = racinesPolynome(a, b, c, x1, x2);
+
+        if (nbRacines == 0) {
+            cout << "Le polynôme n'a pas de racines réelles." << endl;
+        } else if (nbRacines == 1) {
+            cout << "Le polynôme a une racine réelle : " << x1 << endl;
+        } else {
+            cout << "Le polynôme a deux racines réelles : " << x1 << " et " << x2 << endl;
+        }
+
+        cout << "Voulez-vous recommencer ? (O/n) : ";
+        cin >> continuer;
+
+    } while (continuer == 'O' || continuer == 'o');
+
+    return 0;
+}
+
+Exo 7 :int racinesPolynome(float a, float b, float c, float& x1, float& x2) {
+    float discriminant = b * b - 4 * a * c;
+
+    if (discriminant > 0) {
+        x1 = (-b + sqrt(discriminant)) / (2 * a);
+        x2 = (-b - sqrt(discriminant)) / (2 * a);
+        return 2;
+    } else if (discriminant == 0) {
+        x1 = -b / (2 * a);
+        return 1;
+    } else {
+        return 0;
+    }
+}
+
+int main() {
+    char continuer;
+    
+    do {
+        float a, b, c;
+        float x1, x2;
+        
+        cout << "Entrez le coefficient a : ";
+        cin >> a;
+        cout << "Entrez le coefficient b : ";
+        cin >> b;
+        cout << "Entrez le coefficient c : ";
+        cin >> c;
+
+        int nbRacines = racinesPolynome(a, b, c, x1, x2);
+
+        if (nbRacines == 0) {
+            cout << "Le polynôme n'a pas de racines réelles." << endl;
+        } else if (nbRacines == 1) {
+            cout << "Le polynôme a une racine réelle : " << x1 << endl;
+        } else {
+            cout << "Le polynôme a deux racines réelles : " << x1 << " et " << x2 << endl;
+        }
+
+        cout << "Voulez-vous recommencer ? (O/n) : ";
+        cin >> continuer;
+
+    } while (continuer == 'O' or continuer == 'o');
+
+    return 0;
+}
+
+Après j'ai pas fait

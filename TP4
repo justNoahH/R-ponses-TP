@@ -1,0 +1,248 @@
+Exo 1 :
+
+int carre(int a) {
+    return a*a;
+}
+
+
+int main() {
+    int val, valmax;
+    vector<int> res;
+    valmax = 200;
+    cout << "Entrez une valeur entre 1 et " << valmax << " : ";
+    cin >> val;
+    res = vector<int> (val+1);
+    
+    
+    for (int i = 0; i <= val; i++) {
+        res.at(i) = carre(i);
+    }
+    
+    for (int element : res) {
+        cout << element<< endl;
+    }
+    
+    for (int j=val; j > 0; j-=1) {
+        res.at(j) = res.at(j) - res.at(j-1);
+    }
+    
+    for (int element : res) {
+        cout << element << endl;
+    }
+    
+    return 0;
+}
+
+Exo 2 :
+
+vector<int> creeTab(int n) {
+    vector<int> tab;
+    tab = vector<int> (n);
+    
+    for (int i = 0; i < n; i++) {
+        cin >> tab.at(i);
+    }
+    
+    return tab;
+}
+
+
+void printTab(vector<int> tab) {
+    int count = 0;
+    for (int element : tab) {
+        cout << element << " ; ";
+        count += 1;
+        if (count%5==0) {
+            cout << "" << endl;
+        }
+    }
+}
+
+double moyenne(vector<int> tab, int n) {
+    int somme = 0;
+    for (int element : tab) {
+        somme += element;
+    }
+    return somme/n;
+}
+
+int maximum(vector<int> tab) {
+    int max = tab.at(0);
+    for (int element : tab) {
+        if (element > max) {
+            max = element;
+        }
+    }
+    return max;
+}
+
+bool croissant(vector<int> tab) {
+    int min = tab.at(0);
+    for (int element : tab) {
+        if (element < min) {
+            return false;
+        }
+        min = element;
+    }
+    return true;
+}
+
+bool decroissant(vector<int> tab) {
+    int max = tab.at(0);
+    for (int element : tab) {
+        if (element > max) {
+            return false;
+        }
+        max = element;
+    }
+    return true;
+}
+
+vector<int> triCroissant(vector<int> tab) {
+    vector<int> copie = tab;
+    int n = tab.size();
+    int passage = 0;
+    bool permutation = false;
+    do {
+        permutation = false;
+        for (int i=0; (i==n-1-passage); i++) {
+            if (copie.at(i) > copie.at(i+1)) {
+                int temp = copie.at(i);
+                copie.at(i) = copie.at(i+1);
+                copie.at(i+1) = temp;
+                permutation = true;
+            }
+        }
+        passage += 1;
+    } while (permutation == false);
+    return copie;
+}
+
+int main()
+{
+    vector<int> tab = creeTab(7);
+    printTab(tab);
+    cout << endl << moyenne(tab, 7) << endl << maximum(tab) << endl << croissant(tab) << endl << decroissant(tab) << endl;
+    vector<int> copie = triCroissant(tab);
+    printTab(copie);
+
+    return 0;
+}
+
+Exo 3 :
+
+bool contient(vector<int> tab, int x) {
+    for (int elem : tab) {
+        if (elem == x) {
+            return true;
+        }
+    }
+    return false;
+}
+
+vector<int> intersection(vector<int> tab1, vector<int> tab2) {
+    vector<int> tab3;
+    bool alreadyIn = false;
+    for (int elem : tab1) {
+        alreadyIn = false;
+        for (int element : tab2) {
+            for (int elt : tab3) {
+                if (element == elt) {
+                    alreadyIn = true;
+                }
+            }
+            if (not alreadyIn) {
+                if (element == elem) {
+                    tab3.push_back(element);
+                }
+            }
+        }
+    }
+    return tab3;
+}
+
+pair<vector<int>, vector<int>> plusOuMoins(vector<int> tab, int x) {
+    vector<int> sup;
+    vector<int> inf;
+    for (int elem : tab) {
+        if (elem > x) {
+            sup.push_back(elem);
+        }
+        if (elem < x) {
+            inf.push_back(elem);
+        }
+    }
+    return make_pair(sup, inf);
+}
+
+void printTab(vector<int> tab) {
+    int count = 0;
+    for (int element : tab) {
+        cout << element << " ; ";
+        count += 1;
+        if (count%5==0) {
+            cout << "" << endl;
+        }
+    }
+}
+
+int main()
+{
+    vector<int> tab = {10, 20, 30, 40, 50};
+    vector<int> tab2 = {50, 12, 30, 50};
+    vector<int> tab3;
+    auto result = plusOuMoins(tab, 30);
+    vector<int> sup = result.first;
+    vector<int> inf = result.second;
+    cout << contient(tab, 0) << endl;
+    tab3 = intersection(tab, tab2);
+    printTab(tab3);
+    cout << "" << endl;
+    printTab(sup);
+    cout << "" << endl;
+    printTab(inf);
+    return 0;
+}
+
+Exo 4 :
+
+struct Point2D {
+    double x;
+    double y;
+};
+
+struct Segment {
+    Point2D debut;
+    Point2D fin;
+};
+
+double distance(Point2D debut, Point2D fin) {
+    double distance = sqrt((fin.x-debut.x)*(fin.x-debut.x)+(fin.y-debut.y)*(fin.y-debut.y));
+    return distance;
+}
+
+double longueur(Segment s) {
+    double longueur = sqrt((s.fin.x-s.debut.x)*(s.fin.x-s.debut.x)+(s.fin.y-s.debut.y)*(s.fin.y-s.debut.y));
+    return longueur;
+}
+
+double milieu(Point2D debut, Point2D fin) {
+    double milieu = ((fin.x+debut.x)/2)+((fin.y+debut.y)/2);
+    return milieu;
+}
+
+int main()
+{
+    struct Point2D point1;
+    point1.x=3;
+    point1.y=7;
+    struct Point2D point2;
+    point2.x=5;
+    point2.y=8;
+    struct Segment s;
+    s.debut = point1;
+    s.fin = point2;
+    
+    cout << longueur(s) << endl << milieu(s.debut, s.fin);
+    return 0;
+}

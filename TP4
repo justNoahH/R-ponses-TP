@@ -246,3 +246,113 @@ int main()
     cout << longueur(s) << endl << milieu(s.debut, s.fin);
     return 0;
 }
+
+Exo 6 : 
+
+bool questionUne(vector<vector<int>> tab) {
+    bool carre = true;
+    int somme_ref = 0;
+    int taille = tab.size();
+    /* On calcule la somme des valeurs de la première ligne (somme de référence)*/
+    for (int element : tab.at(0)) {
+        somme_ref += element;
+    }
+    /* On compare cette valeur à la somme de chaque ligne*/
+    for (vector<int> element : tab) {
+        int somme = 0;
+        for (int elem : element) {
+                somme += elem;
+            }
+            if (somme != somme_ref) {
+                carre = false;
+            }
+        }
+    
+    /* On compare avec la somme de chaque colonne */
+    for (int i=0; i<taille; i++) {
+        int somme = 0;
+        for (int j=0; j<taille; j++) {
+            somme += tab.at(i).at(j);
+        }
+        if (somme != somme_ref) {
+                carre = false;
+            }
+    } 
+    
+    /* On compare avec la première diagonale */
+    int somme = 0;
+    for (int i=0; i<taille; i++) {
+        somme += tab[i][i];
+    }
+    
+    if (somme != somme_ref) {
+        carre = false;
+    }
+    
+    /* On compare avec la deuxième diagonale */
+    somme = 0;
+    for (int i=0; i<taille; i++) {
+        somme += tab[i][tab.at(0).size()-1-i];
+    }
+    
+    if (somme != somme_ref) {
+        carre = false;
+    }
+    return carre;
+}
+
+void questionDeux(vector<vector<int>> tab) {
+    for (vector<int> element : tab) {
+        for (int elem : element) {
+            cout << elem << ", ";
+        }
+        cout << "" << endl;
+    }
+    
+    if (questionUne(tab)) {
+        cout << "Ce carré est magique !" << endl;
+    }
+    else {
+        cout << "Ce carré n'est pas magique !" << endl;
+    }
+}
+
+
+int main() {
+
+    /**
+    int n, n2;
+    On initialise le tableau 1 
+    cout << "Choisissez l'ordre du tableau 1";
+    cin >> n;
+    vector<vector<int>> tab;
+    for (vector<int> elem : tab) {
+        elem = vector<int> (n);
+        for (int element : elem) {
+            cin >> element;
+        }
+    }
+    
+    On initialise le tableau 2
+    cout << "Choisissez l'ordre du tableau 2";
+    cin >> n2;
+    vector<vector<int>> tab2;
+    for (vector<int> elem : tab2) {
+        elem = vector<int> (n2);
+        for (int element : elem) {
+            cin >> element;
+        }
+    }
+    **/
+    vector<vector<int> > tab { { 1, 1, 1 },
+                              { 2, 2, 2 },
+                              {3 ,3, 3}};
+    
+    vector<vector<int> > tab2 { { 8, 1, 6 },
+                                { 3, 5, 7 },
+                               {4, 9, 2}};
+
+    questionDeux(tab);
+    questionDeux(tab2);
+    return 0;
+}
